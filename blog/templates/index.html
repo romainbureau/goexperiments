@@ -1,6 +1,10 @@
 <html>
   <body>
-    <h1>rb</h1>
-    <p>{{.}}</p>
+    <h1>index</h1>
+    <ul>
+    {{ range $post := .Posts }}
+    <li><a href="/post/{{ $post.Title }}">{{ $post.Title }}</a></li>
+    {{ end }}
+    </ul>
   </body>
 </html>
