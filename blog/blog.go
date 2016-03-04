@@ -26,8 +26,8 @@ type Posts struct {
 }
 
 type Post struct {
-	Title   string
-	Content string
+	Filename string
+	Content  string
 }
 
 func init() {
@@ -67,9 +67,9 @@ func formatPostTitle(title string) string {
 func readPost(file string) (Post, error) {
 	md, err := ioutil.ReadFile(filepath.Join(data, "/"+file))
 	if err != nil {
-		return Post{Title: "", Content: ""}, err
+		return Post{Filename: "", Content: ""}, err
 	}
-	return Post{Title: file, Content: string(md)}, nil
+	return Post{Filename: file, Content: string(md)}, nil
 }
 
 func Markdown(input string) template.HTML {
@@ -114,9 +114,14 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func noneHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte(""))
+}
+
 func main() {
 	log.Println(fmt.Sprintf("listening on %d", port))
 
+	http.HandleFunc("/favicon.ico", noneHandler)
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/post/", postHandler)
 

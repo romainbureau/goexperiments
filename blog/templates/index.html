@@ -3,7 +3,7 @@
     <h1>index</h1>
     <ul>
     {{ range $post := .Posts }}
-    <li><a href="/post/{{ $post.Title }}">{{ $post.Title }}</a></li>
+    <li><a href="/post/{{ $post.Filename }}">{{ $post.Filename }}</a></li>
     {{ end }}
     </ul>
   </body>
